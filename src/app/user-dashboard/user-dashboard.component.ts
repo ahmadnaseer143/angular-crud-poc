@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserModel } from './user-dashboard-model';
 import { ApiService } from '../shared/api.service';
 import { Router } from '@angular/router';
@@ -24,9 +24,12 @@ export class UserDashboardComponent {
 
   ngOnInit(): void {
     this.formValue = this.formbuilder.group({
-      name: [''],
-      email: [''],
-      mobile: [''],
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      mobile: [
+        '',
+        [Validators.required, Validators.pattern(/^\+\d{1,3}\d{9}$/)],
+      ],
     });
     this.getAllUsers();
   }
@@ -38,22 +41,26 @@ export class UserDashboardComponent {
   }
 
   postUserDetails() {
-    this.userModelObj.name = this.formValue.value.name;
-    this.userModelObj.email = this.formValue.value.email;
-    this.userModelObj.mobile = this.formValue.value.mobile;
+    if (this.formValue.valid) {
+      this.userModelObj.name = this.formValue.value.name;
+      this.userModelObj.email = this.formValue.value.email;
+      this.userModelObj.mobile = this.formValue.value.mobile;
 
-    this.api.create(this.userModelObj).subscribe(
-      (res) => {
-        // console.log(res);
-        let closeRef = document.getElementById('close');
-        closeRef?.click();
-        this.formValue.reset();
-        this.getAllUsers();
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+      this.api.create(this.userModelObj).subscribe(
+        (res) => {
+          // console.log(res);
+          let closeRef = document.getElementById('close');
+          closeRef?.click();
+          this.formValue.reset();
+          this.getAllUsers();
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    } else {
+      this.formValue.markAllAsTouched();
+    }
   }
 
   getAllUsers() {
@@ -79,22 +86,26 @@ export class UserDashboardComponent {
   }
 
   updateUserDetails() {
-    this.userModelObj.name = this.formValue.value.name;
-    this.userModelObj.email = this.formValue.value.email;
-    this.userModelObj.mobile = this.formValue.value.mobile;
+    if (this.formValue.valid) {
+      this.userModelObj.name = this.formValue.value.name;
+      this.userModelObj.email = this.formValue.value.email;
+      this.userModelObj.mobile = this.formValue.value.mobile;
 
-    this.api.update(this.userModelObj.id, this.userModelObj).subscribe(
-      (res) => {
-        // console.log(res);
-        let closeRef = document.getElementById('close');
-        closeRef?.click();
-        this.formValue.reset();
-        this.getAllUsers();
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
+      this.api.update(this.userModelObj.id, this.userModelObj).subscribe(
+        (res) => {
+          // console.log(res);
+          let closeRef = document.getElementById('close');
+          closeRef?.click();
+          this.formValue.reset();
+          this.getAllUsers();
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    } else {
+      this.formValue.markAllAsTouched();
+    }
   }
 
   logout() {
