@@ -10,6 +10,7 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { EdituserComponent } from './edituser/edituser.component';
 import { RouteguardService } from './routeguard.service';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { RouteguardService } from './routeguard.service';
     LoginComponent,
     SignupComponent,
     EdituserComponent,
+    NotfoundComponent,
   ],
   imports: [
     BrowserModule,
