@@ -73,16 +73,18 @@ export class UserDashboardComponent {
   }
 
   deleteUser(id: any) {
-    this.api.delete(id).subscribe((res) => this.getAllUsers());
+    let confirm = window.confirm('Are you sure you want to delete?');
+    if (confirm) this.api.delete(id).subscribe((res) => this.getAllUsers());
   }
 
   onEdit(user: any) {
-    this.showAdd = false;
-    this.showUpdate = true;
-    this.userModelObj.id = user.id;
-    this.formValue.controls['name'].setValue(user.name);
-    this.formValue.controls['email'].setValue(user.email);
-    this.formValue.controls['mobile'].setValue(user.mobile);
+    this.router.navigate(['/dashboard/edituser', user.id]);
+    // this.showAdd = false;
+    // this.showUpdate = true;
+    // this.userModelObj.id = user.id;
+    // this.formValue.controls['name'].setValue(user.name);
+    // this.formValue.controls['email'].setValue(user.email);
+    // this.formValue.controls['mobile'].setValue(user.mobile);
   }
 
   updateUserDetails() {
@@ -109,6 +111,7 @@ export class UserDashboardComponent {
   }
 
   logout() {
+    localStorage.clear();
     this.router.navigate(['login']);
   }
 }

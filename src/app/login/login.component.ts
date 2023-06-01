@@ -36,6 +36,7 @@ export class LoginComponent {
           );
           if (user) {
             this.loginForm.reset();
+            localStorage.setItem('token', 'token');
             this.router.navigate(['dashboard']);
           } else {
             alert('User not found');

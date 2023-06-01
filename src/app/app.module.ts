@@ -8,16 +8,24 @@ import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { EdituserComponent } from './edituser/edituser.component';
+import { RouteguardService } from './routeguard.service';
 
 @NgModule({
-  declarations: [AppComponent, UserDashboardComponent, LoginComponent, SignupComponent],
+  declarations: [
+    AppComponent,
+    UserDashboardComponent,
+    LoginComponent,
+    SignupComponent,
+    EdituserComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [RouteguardService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

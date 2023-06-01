@@ -35,13 +35,10 @@
       <td>{{ user.email }}</td>
       <td>{{ user.mobile }}</td>
       <td>
-        <button
-          class="btn btn-info"
-          type="button"
-          data-bs-toggle="modal"
+        <button class="btn btn-info" type="button" (click)="onEdit(user)">
+          <!-- data-bs-toggle="modal"
           data-bs-target="#exampleModal"
-          (click)="onEdit(user)"
-        >
+         -->
           Edit
         </button>
         <button class="btn btn-danger mx-3" (click)="deleteUser(user.id)">
@@ -134,7 +131,6 @@
               placeholder="Enter Mobile"
               formControlName="mobile"
             />
-
             <div
               *ngIf="
                 formValue.get('mobile')?.hasError('required') &&
